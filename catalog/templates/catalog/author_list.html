@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+{% block content %}
+  <h2>Авторы</h2>
+  <ul>
+    {% for author in author_list %}
+      <li>
+        <h3>{{ author }}</h3>
+        {% if author.date_of_birth or author.date_of_death %}
+          <p>Родился: {{ author.date_of_birth|default:"?" }}
+          {% if author.date_of_death %} — Умер: {{ author.date_of_death }}{% endif %}
+          </p>
+        {% endif %}
+      </li>
+    {% empty %}
+      <li>Нет авторов.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

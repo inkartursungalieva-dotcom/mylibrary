@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+{% block content %}
+  <h2>Добро пожаловать в Local Library!</h2>
+  <p>Книг: {{ num_books }}, Авторов: {{ num_authors }}</p>
+
+  <form method="get" action="{% url 'books' %}" style="margin:1rem 0;">
+    <input type="text" name="q" placeholder="Поиск книги..." value="{{ request.GET.q }}">
+    <button type="submit">Найти</button>
+  </form>
+
+  <h3>Рекомендуем:</h3>
+  {% for book in featured_books %}
+    <div style="display:flex; margin:1rem 0;">
+      {% if book.cover %}
+        <img src="{{ book.cover.url }}" class="book-cover" alt="Обложка">
+      {% endif %}
+      <div style="margin-left:1rem;">
+        <h3><a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></h3>
+        <p><em>{{ book.author }}</em></p>
+        <p>{{ book.summary|truncatewords:15 }}</p>
+      </div>
+    </div>
+  {% empty %}
+    <p>Нет книг.</p>
+  {% endfor %}
+{% endblock %}

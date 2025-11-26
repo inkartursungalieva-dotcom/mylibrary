@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+{% block content %}
+  <h2>Все книги</h2>
+  <form method="get" style="margin-bottom:1rem;">
+    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Поиск...">
+    <button type="submit">Найти</button>
+  </form>
+  <ul>
+    {% for book in book_list %}
+      <li style="margin:1.5rem 0; display:flex;">
+        {% if book.cover %}
+          <img src="{{ book.cover.url }}" class="book-cover" alt="Обложка">
+        {% endif %}
+        <div style="margin-left:1rem;">
+          <h3><a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></h3>
+          <p>Автор: {{ book.author }}</p>
+          <p>{{ book.summary|truncatewords:20 }}</p>
+        </div>
+      </li>
+    {% empty %}
+      <li>Нет книг.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+{% block content %}
+  <h2>{{ book.title }}</h2>
+  <div style="display:flex; gap:1.5rem; align-items:flex-start;">
+    {% if book.cover %}
+      <img src="{{ book.cover.url }}" class="book-cover" alt="Обложка">
+    {% endif %}
+    <div>
+      <p><strong>Автор:</strong> {{ book.author }}</p>
+      <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+      <p><strong>Описание:</strong></p>
+      <p>{{ book.summary }}</p>
+    </div>
+  </div>
+{% endblock %}
